@@ -1,0 +1,69 @@
+{
+  "version": 1,
+  "skills": {
+    "skill-finder-cn-1-0-1": {
+      "version": "1.0.0",
+      "installedAt": 1776591449293
+    },
+    "skill-finder-cn": {
+      "version": "1.0.1",
+      "installedAt": 1776591603839
+    },
+    "self-improving-agent": {
+      "version": "3.0.16",
+      "installedAt": 1776591885290
+    },
+    "skill-vetter": {
+      "version": "1.0.0",
+      "installedAt": 1776593405917
+    },
+    "superpowers-mode": {
+      "version": "1.0.1",
+      "installedAt": 1776615564170
+    },
+    "claude-code-code-simplifier": {
+      "version": "1.0.0",
+      "installedAt": 1776616466292
+    },
+    "lb-motion-skill": {
+      "version": "0.1.0",
+      "installedAt": 1776619210006
+    },
+    "taste": {
+      "version": "1.0.0",
+      "installedAt": 1776619219200
+    },
+    "ui-skills": {
+      "version": "1.0.0",
+      "installedAt": 1776619226912
+    },
+    "design-md": {
+      "version": "1.0.0",
+      "installedAt": 1776619265220
+    },
+    "xcrawl": {
+      "version": "1.0.0",
+      "installedAt": 1776619990680
+    },
+    "xcrawl-crawl": {
+      "version": "1.0.2",
+      "installedAt": 1776620033329
+    },
+    "xcrawl-search": {
+      "version": "1.0.2",
+      "installedAt": 1776620196783
+    },
+    "xcrawl-map": {
+      "version": "1.0.2",
+      "installedAt": 1776620203816
+    },
+    "xcrawl-scrape": {
+      "version": "1.0.2",
+      "installedAt": 1776620227362
+    },
+    "xcrawl-scraper": {
+      "version": "1.0.0",
+      "installedAt": 1776620606728
+    }
+  }
+}

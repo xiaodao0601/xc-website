@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#FFF8F0">
+  <title>陈总的小窝</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="apple-touch-icon" href="icon-192.png">
+</head>
+<body>
+  <!-- 启动画面 -->
+  <div id="splash-screen">
+    <div class="splash-logo">陈总的小窝</div>
+    <div class="splash-spinner"></div>
+  </div>
+
+  <!-- 主题切换动画遮罩 -->
+  <div id="theme-transition-overlay"></div>
+
+  <!-- 轮播图 -->
+  <section class="carousel-section">
+    <div class="carousel-container" id="carousel">
+      <div class="carousel-wrapper" id="carouselWrapper">
+        <!-- 轮播图通过JS动态生成 -->
+      </div>
+    </div>
+  </section>
+
+  <!-- 粒子画布 -->
+  <canvas id="particle-canvas"></canvas>
+
+  <!-- 安全区域 -->
+  <div class="safe-area-top"></div>
+
+  <!-- 头部 -->
+  <header class="header">
+    <div class="user-info">
+      <div class="avatar-container" role="button" aria-label="用户头像">
+        <img src="https://intact-bronze-c17akdqkot.edgeone.app/avatar.jpg" alt="头像" class="avatar" crossorigin="anonymous">
+      </div>
+      <div class="user-details">
+        <h1 class="nickname">陈汉升</h1>
+        <p class="bio">一个有理想的老男人</p>
+      </div>
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="切换主题">
+        <span class="theme-icon">🎭</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- 分类导航 -->
+  <nav class="category-nav" role="tablist">
+    <button class="category-btn active" data-category="all" role="tab" aria-selected="true">
+      <span class="icon">📁</span>
+      <span>全部</span>
+    </button>
+    <button class="category-btn" data-category="software" role="tab" aria-selected="false">
+      <span class="icon">💻</span>
+      <span>软件</span>
+    </button>
+    <button class="category-btn" data-category="game" role="tab" aria-selected="false">
+      <span class="icon">🎮</span>
+      <span>游戏</span>
+    </button>
+    <button class="category-btn" data-category="document" role="tab" aria-selected="false">
+      <span class="icon">📚</span>
+      <span>资料</span>
+    </button>
+    <button class="category-btn" data-category="other" role="tab" aria-selected="false">
+      <span class="icon">📦</span>
+      <span>其他</span>
+    </button>
+  </nav>
+
+  <!-- 主内容区 -->
+  <main class="content">
+    <div class="file-list" id="fileList">
+      <!-- 文件卡片将通过JS动态渲染 -->
+    </div>
+  </main>
+
+  <!-- 底部导航 -->
+  <nav class="bottom-nav" role="navigation">
+    <button class="nav-btn active" data-page="home" aria-label="首页">
+      <span class="icon">🏠</span>
+      <span class="label">首页</span>
+    </button>
+    <button class="nav-btn" data-page="category" aria-label="分类">
+      <span class="icon">📂</span>
+      <span class="label">分类</span>
+    </button>
+    <button class="nav-btn" data-page="search" aria-label="搜索">
+      <span class="icon">🔍</span>
+      <span class="label">搜索</span>
+    </button>
+    <button class="nav-btn" data-page="settings" aria-label="设置">
+      <span class="icon">⚙️</span>
+      <span class="label">设置</span>
+    </button>
+  </nav>
+
+  <div class="safe-area-bottom"></div>
+
+  <!-- 长按上下文菜单 -->
+  <div class="context-menu" id="contextMenu">
+    <button class="menu-item" data-action="download">
+      <span class="icon">📥</span>
+      <span>下载</span>
+    </button>
+    <button class="menu-item" data-action="share">
+      <span class="icon">📤</span>
+      <span>分享</span>
+    </button>
+    <button class="menu-item" data-action="info">
+      <span class="icon">ℹ️</span>
+      <span>详情</span>
+    </button>
+  </div>
+
+  <!-- 下载弹窗 -->
+  <div class="download-modal" id="downloadModal">
+    <div class="modal-content">
+      <h3>正在下载...</h3>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="progress-text" id="progressText">0%</p>
+    </div>
+  </div>
+
+  <!-- Live2D 容器 -->
+  <div id="live2d-container"></div>
+
+  <!-- PWA Service Worker -->
+  <script src="sw.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的二次元文件库</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=ZCOOL+KuaiLe&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-pink: #ffb7c5;
+            --primary-blue: #a8d8ea;
+            --accent-purple: #c3aed6;
+            --text-dark: #5a4a72;
+            --text-light: #ffffff;
+            --card-bg: rgba(255, 255, 255, 0.25);
+            --card-border: rgba(255, 255, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--primary-pink) 0%, var(--primary-blue) 50%, var(--accent-purple) 100%);
+            background-attachment: fixed;
+            color: var(--text-dark);
+            padding: 20px;
+            padding-bottom: 80px;
+        }
+
+        /* 毛玻璃卡片容器 */
+        .glass-card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 顶部个人信息 */
+        .profile-section {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid rgba(255, 255, 255, 0.6);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            object-fit: cover;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--primary-pink), var(--accent-purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 40px;
+        }
+
+        .nickname {
+            font-family: 'ZCOOL KuaiLe', cursive;
+            font-size: 28px;
+            color: var(--text-dark);
+            margin-bottom: 8px;
+            text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.5);
+        }
+
+        .bio {
+            font-size: 14px;
+            color: var(--text-dark);
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* 分类标签 */
+        .category-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .category-tab {
+            padding: 10px 20px;
+            border-radius: 20px;
+            border: none;
+            background: rgba(255, 255, 255, 0.3);
+            color: var(--text-dark);
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Noto Sans SC', sans-serif;
+        }
+
+        .category-tab:hover {
+            background: rgba(255, 255, 255, 0.5);
+            transform: translateY(-2px);
+        }
+
+        .category-tab.active {
+            background: linear-gradient(135deg, var(--primary-pink), var(--accent-purple));
+            color: white;
+            box-shadow: 0 4px 15px rgba(195, 174, 214, 0.5);
+        }
+
+        /* 文件列表 */
+        .file-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .file-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            background: rgba(255, 255, 255, 0.35);
+            transform: translateX(4px);
+        }
+
+        .file-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .file-name {
+            font-weight: 500;
+            font-size: 15px;
+            color: var(--text-dark);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .file-size {
+            font-size: 12px;
+            color: var(--text-dark);
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .download-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 12px;
+            background: linear-gradient(135deg, var(--primary-blue), var(--accent-purple));
+            color: white;
+            font-size: 13px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+            margin-left: 12px;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(168, 216, 234, 0.5);
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* 空状态 */
+        .empty-state {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-dark);
+            opacity: 0.7;
+        }
+
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        /* 移动端优化 */
+        @media (max-width: 480px) {
+            body {
+                padding: 16px;
+                padding-bottom: 60px;
+            }
+
+            .glass-card {
+                padding: 20px;
+                border-radius: 20px;
+            }
+
+            .avatar {
+                width: 80px;
+                height: 80px;
+                font-size: 32px;
+            }
+
+            .nickname {
+                font-size: 24px;
+            }
+
+            .category-tabs {
+                gap: 8px;
+            }
+
+            .category-tab {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+
+            .file-item {
+                padding: 12px;
+            }
+
+            .download-btn {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+        }
+
+        /* 动画 */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .file-item {
+            animation: fadeIn 0.3s ease forwards;
+        }
+
+        .file-item:nth-child(1) { animation-delay: 0.05s; }
+        .file-item:nth-child(2) { animation-delay: 0.1s; }
+        .file-item:nth-child(3) { animation-delay: 0.15s; }
+        .file-item:nth-child(4) { animation-delay: 0.2s; }
+        .file-item:nth-child(5) { animation-delay: 0.25s; }
+    </style>
+</head>
+<body>
+    <div class="glass-card">
+        <!-- 顶部个人信息 -->
+        <div class="profile-section">
+            <div class="avatar">🐱</div>
+            <h1 class="nickname">小鱼儿的文件库</h1>
+            <p class="bio">✨ 二次元风格文件分享 ✨<br>点击分类浏览，点击下载</p>
+        </div>
+
+        <!-- 分类标签 -->
+        <div class="category-tabs" id="categoryTabs">
+            <button class="category-tab active" data-category="all">全部</button>
+            <button class="category-tab" data-category="software">软件</button>
+            <button class="category-tab" data-category="game">游戏</button>
+            <button class="category-tab" data-category="document">文档</button>
+            <button class="category-tab" data-category="image">图片</button>
+        </div>
+
+        <!-- 文件列表 -->
+        <div class="file-list" id="fileList">
+            <!-- 文件列表将通过 JS 动态渲染 -->
+        </div>
+    </div>
+
+    <script>
+        // ========== 在这里修改你的文件数据 ==========
+        const fileData = [
+            {
+                name: "Photoshop 安装包",
+                category: "software",
+                size: "2.3 GB",
+                url: "https://example.com/photoshop.exe"
+            },
+            {
+                name: "VSCode 便携版",
+                category: "software",
+                size: "89 MB",
+                url: "https://example.com/vscode.zip"
+            },
+            {
+                name: "原神 v4.2",
+                category: "game",
+                size: "18.5 GB",
+                url: "https://example.com/genshin.apk"
+            },
+            {
+                name: "崩坏星穹铁道",
+                category: "game",
+                size: "12.8 GB",
+                url: "https://example.com/hsr.apk"
+            },
+            {
+                name: "Python 学习笔记",
+                category: "document",
+                size: "5.2 MB",
+                url: "https://example.com/python.pdf"
+            },
+            {
+                name: "旅行照片合集",
+                category: "image",
+                size: "156 MB",
+                url: "https://example.com/photos.zip"
+            },
+            {
+                name: "Wallpaper Engine 壁纸",
+                category: "image",
+                size: "320 MB",
+                url: "https://example.com/wallpaper.zip"
+            }
+        ];
+        // ==============================================
+
+        let currentCategory = 'all';
+
+        // 渲染文件列表
+        function renderFileList(category) {
+            const fileListEl = document.getElementById('fileList');
+            
+            // 筛选文件
+            const filteredFiles = category === 'all' 
+                ? fileData 
+                : fileData.filter(file => file.category === category);
+
+            // 空状态
+            if (filteredFiles.length === 0) {
+                fileListEl.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📂</div>
+                        <p>该分类下还没有文件哦～</p>
+                    </div>
+                `;
+                return;
+            }
+
+            // 渲染文件列表
+            fileListEl.innerHTML = filteredFiles.map((file, index) => `
+                <div class="file-item" style="animation-delay: ${index * 0.05}s">
+                    <div class="file-info">
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">📦 ${file.size}</div>
+                    </div>
+                    <a href="${file.url}" class="download-btn" target="_blank" download>
+                        ⬇️ 下载
+                    </a>
+                </div>
+            `).join('');
+        }
+
+        // 分类切换
+        function setupCategoryTabs() {
+            const tabs = document.querySelectorAll('.category-tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    // 更新激活状态
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    
+                    // 更新当前分类并渲染
+                    currentCategory = tab.dataset.category;
+                    renderFileList(currentCategory);
+                });
+            });
+        }
+
+        // 初始化
+        document.addEventListener('DOMContentLoaded', () => {
+            setupCategoryTabs();
+            renderFileList('all');
+        });
+    </script>
+</body>
+</html>
