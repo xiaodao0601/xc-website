@@ -1,0 +1,13 @@
+# Ignore node_modules and other temp files
+node_modules/
+.DS_Store
+*.log
+
+# Keep all website files
+!.gitignore
+!.github/
+!*.html
+!*.css
+!*.js
+!*.json
+!*.svg

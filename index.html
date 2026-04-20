@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#F5E6D3">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>双生花 · Twinflo</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- GSAP -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/Flip.min.js"></script>
+  
+  <!-- Custom Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;600;700&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<!-- 沈幼楚模式 (默认) -->
+<body class="theme-shen" style="touch-action: manipulation;">
+  
+  <!-- 启动画面 -->
+  <div id="splash" class="splash-screen">
+    <div class="splash-logo">
+      <span class="logo-flower">🌸</span>
+      <h1 class="logo-text">双生花</h1>
+    </div>
+    <div class="loader-line">
+      <div class="loader-progress"></div>
+    </div>
+  </div>
+
+  <!-- 主容器 -->
+  <main class="main-container">
+    
+    <!-- 背景层 -->
+    <div class="background-layer">
+      <div class="bg-blur-container">
+        <img id="bg-image-shen" class="bg-image active" src="https://cdn.phototourl.com/free/2026-04-20-9d9d3436-0195-4ad2-9e95-6b7f661bc946.webp" alt="沈幼楚">
+        <img id="bg-image-xiao" class="bg-image" src="https://cdn.phototourl.com/free/2026-04-20-e33bcc85-23aa-4ea1-9c54-b34f8cdd4b63.webp" alt="萧容鱼">
+        <div class="bg-overlay"></div>
+      </div>
+    </div>
+
+    <!-- 内容卡片 -->
+    <div class="content-wrapper">
+      
+      <!-- 顶部状态栏占位 -->
+      <div class="status-bar-spacer"></div>
+
+      <!-- 角色信息卡片 -->
+      <section class="profile-section">
+        <div class="profile-card">
+          <!-- 角色头像 -->
+          <div class="avatar-container">
+            <div class="avatar-ring"></div>
+            <img id="avatar-image" class="avatar-image" src="https://cdn.phototourl.com/free/2026-04-20-9d9d3436-0195-4ad2-9e95-6b7f661bc946.webp" alt="角色">
+          </div>
+          
+          <!-- 角色名称 -->
+          <div class="profile-info">
+            <h2 id="character-name" class="character-name">沈幼楚</h2>
+            <p id="character-desc" class="character-desc">温柔暖调的宝藏女孩 🌹</p>
+            <div class="character-tags">
+              <span class="tag">暖杏色</span>
+              <span class="tag">蓝玫瑰</span>
+              <span class="tag">宝藏女孩</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 特性展示 -->
+      <section class="features-section">
+        <div class="feature-card">
+          <div class="feature-icon">✨</div>
+          <h3>双向情感</h3>
+          <p>温柔的守护 · 傲娇的偏爱</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🌊</div>
+          <h3>流畅切换</h3>
+          <p>120Hz 丝滑过渡动画</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3>Material You</h3>
+          <p>2026 空间悬浮设计</p>
+        </div>
+      </section>
+
+      <!-- 动态数据 -->
+      <section class="stats-section">
+        <div class="stat-item">
+          <span class="stat-value" data-count="99">0</span>
+          <span class="stat-label">好感度</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" data-count="365">0</span>
+          <span class="stat-label">相遇天数</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat-item">
+          <span class="stat-value" data-count="520">0</span>
+          <span class="stat-label">专属时刻</span>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 底部 Dock 栏 -->
+    <nav class="dock-container">
+      <div class="dock-glass">
+        <button id="theme-switch-btn" class="dock-btn theme-switch" aria-label="切换主题">
+          <span class="dock-icon">💫</span>
+          <span class="dock-label">切换</span>
+          <span class="ripple-effect"></span>
+        </button>
+        
+        <button class="dock-btn" aria-label="主页">
+          <span class="dock-icon">🏠</span>
+          <span class="dock-label">主页</span>
+          <span class="ripple-effect"></span>
+        </button>
+        
+        <button class="dock-btn" aria-label="收藏">
+          <span class="dock-icon">❤️</span>
+          <span class="dock-label">收藏</span>
+          <span class="ripple-effect"></span>
+        </button>
+        
+        <button class="dock-btn" aria-label="设置">
+          <span class="dock-icon">⚙️</span>
+          <span class="dock-label">设置</span>
+          <span class="ripple-effect"></span>
+        </button>
+      </div>
+    </nav>
+
+  </main>
+
+  <!-- 主题切换遮罩 -->
+  <div id="transition-overlay" class="transition-overlay"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>

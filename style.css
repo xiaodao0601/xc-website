@@ -1,0 +1,517 @@
+/* ========================================
+   陈总的小窝 - 样式重写版
+   ======================================== */
+
+:root {
+  --bg-color: #F5E6D3;
+  --text-primary: #5D4E37;
+  --text-secondary: #8B7355;
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --accent-color: #D4A574;
+  --shadow-light: rgba(93, 78, 55, 0.1);
+  --shadow-medium: rgba(93, 78, 55, 0.15);
+  --glass-bg: rgba(255, 255, 255, 0.25);
+  --glass-border: rgba(255, 255, 255, 0.3);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  background: linear-gradient(135deg, #F5E6D3 0%, #E8D5C4 50%, #F0E2D0 100%);
+  min-height: 100vh;
+  color: var(--text-primary);
+  overflow-x: hidden;
+}
+
+/* ===== 启动画面 ===== */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.splash-screen.hidden {
+  opacity: 0;
+  transform: scale(1.1);
+  pointer-events: none;
+}
+
+.splash-screen .title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.3em;
+  text-shadow: 2px 2px 8px var(--shadow-light);
+  animation: titlePulse 2s ease-in-out infinite;
+}
+
+@keyframes titlePulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.02); opacity: 1; }
+}
+
+.loader {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--glass-border);
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-top: 30px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ===== 粒子背景画布 ===== */
+#particle-canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== 主容器 ===== */
+.container {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  padding: 20px;
+  padding-bottom: 100px;
+}
+
+/* ===== 头部 ===== */
+.header {
+  text-align: center;
+  padding: 40px 20px;
+  margin-bottom: 20px;
+}
+
+.header h1 {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  letter-spacing: 0.15em;
+}
+
+/* ===== 轮播图 ===== */
+.carousel-section {
+  margin-bottom: 30px;
+}
+
+.carousel {
+  position: relative;
+  width: calc(100% - 20px);
+  max-width: 400px;
+  height: 533px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px var(--shadow-medium);
+  background: var(--card-bg);
+}
+
+.carousel-wrapper {
+  display: flex;
+  height: 100%;
+  will-change: transform;
+}
+
+.carousel-slide {
+  min-width: calc(100% - 52px);
+  height: 100%;
+  padding: 26px;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 14px;
+}
+
+.carousel-indicator {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.carousel-indicator span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.carousel-indicator span.active {
+  width: 24px;
+  border-radius: 4px;
+  background: var(--accent-color);
+}
+
+/* ===== 分类标签 ===== */
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 25px;
+  padding: 0 10px;
+}
+
+.category-btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  background: var(--glass-bg);
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+}
+
+.category-btn:hover {
+  background: var(--card-bg);
+  transform: translateY(-2px);
+}
+
+.category-btn.active {
+  background: var(--accent-color);
+  color: white;
+  box-shadow: 0 4px 15px rgba(212, 165, 116, 0.4);
+}
+
+/* ===== 文件卡片 ===== */
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 15px;
+  padding: 0 10px;
+}
+
+.file-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  padding: 20px 15px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: cardEnter 0.5s ease backwards;
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+}
+
+.file-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 30px var(--shadow-medium);
+  background: rgba(255, 255, 255, 0.4);
+}
+
+.file-card:active {
+  transform: scale(0.97);
+}
+
+.file-icon {
+  font-size: 2.5rem;
+  margin-bottom: 12px;
+}
+
+.file-name {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  margin-bottom: 6px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.file-size {
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+}
+
+/* ===== 底部导航 ===== */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  padding: 15px 20px 25px;
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--glass-border);
+  z-index: 100;
+}
+
+.nav-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 8px 20px;
+  border: none;
+  background: none;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.nav-btn .icon {
+  font-size: 1.4rem;
+}
+
+.nav-btn.active {
+  color: var(--accent-color);
+}
+
+/* ===== 主题切换按钮 ===== */
+.theme-toggle {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: none;
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  cursor: pointer;
+  z-index: 100;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px var(--shadow-light);
+}
+
+/* ===== 上下文菜单 ===== */
+.context-menu {
+  position: fixed;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  padding: 8px 0;
+  min-width: 150px;
+  box-shadow: 0 8px 30px var(--shadow-medium);
+  z-index: 1000;
+  animation: menuAppear 0.2s ease forwards;
+}
+
+@keyframes menuAppear {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.context-menu-item {
+  padding: 12px 20px;
+  font-size: 0.9rem;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.context-menu-item:hover {
+  background: rgba(212, 165, 116, 0.2);
+}
+
+/* ===== 下载弹窗 ===== */
+.download-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.9);
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  padding: 30px;
+  width: 280px;
+  text-align: center;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.download-modal.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.progress-container {
+  margin-top: 20px;
+}
+
+.progress-bar {
+  height: 8px;
+  background: rgba(212, 165, 116, 0.2);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--accent-color), #E8C49A);
+  border-radius: 4px;
+  transition: width 0.2s ease;
+}
+
+.progress-text {
+  margin-top: 10px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* ===== 提示消息 ===== */
+.toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  padding: 16px 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px var(--shadow-strong, rgba(0,0,0,0.15));
+  z-index: 10002;
+  font-size: 0.9rem;
+  font-weight: 500;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+}
+
+/* ===== 主题切换动画 ===== */
+.theme-transition-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+  z-index: 9998;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+
+.theme-transition-overlay.active {
+  opacity: 1;
+}
+
+/* ===== 卡片激活状态 ===== */
+.file-card.active {
+  background: rgba(212, 165, 116, 0.25);
+  border-color: var(--accent-color);
+  box-shadow: 0 8px 25px rgba(212, 165, 116, 0.3);
+}
+
+/* ===== 暗色主题 ===== */
+body.dark-theme {
+  --bg-color: #1a1a2e;
+  --text-primary: #e8e8e8;
+  --text-secondary: #a0a0a0;
+  --card-bg: rgba(30, 30, 50, 0.7);
+  --accent-color: #7c9885;
+  --shadow-light: rgba(0, 0, 0, 0.2);
+  --shadow-medium: rgba(0, 0, 0, 0.3);
+  --glass-bg: rgba(40, 40, 60, 0.25);
+  --glass-border: rgba(60, 60, 80, 0.3);
+}
+
+body.dark-theme .splash-screen {
+  background: var(--bg-color);
+}
+
+body.dark-theme .header h1,
+body.dark-theme .splash-screen .title {
+  color: var(--text-primary);
+}
+
+body.dark-theme .file-name {
+  color: var(--text-primary);
+}
+
+body.dark-theme .context-menu,
+body.dark-theme .download-modal,
+body.dark-theme .toast {
+  background: var(--card-bg);
+  border-color: var(--glass-border);
+}
+
+body.dark-theme .context-menu-item,
+body.dark-theme .menu-item {
+  color: var(--text-primary);
+}
+
+/* ===== 响应式 ===== */
+@media (max-width: 480px) {
+  .splash-screen .title {
+    font-size: 1.8rem;
+  }
+  
+  .header h1 {
+    font-size: 1.4rem;
+  }
+  
+  .carousel {
+    height: 400px;
+  }
+  
+  .file-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
