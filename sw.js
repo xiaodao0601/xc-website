@@ -1,9 +1,9 @@
 /* ========================================
-   陈总的小窝 - Service Worker
+   小道的小窝 - Service Worker
    PWA离线缓存 + 推送支持
    ======================================== */
 
-const CACHE_NAME = 'chenzong-v1';
+const CACHE_NAME = 'chenzong-v2';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -75,7 +75,7 @@ self.addEventListener('fetch', event => {
 // 推送通知（预留）
 self.addEventListener('push', event => {
   const options = {
-    body: event.data ? event.data.text() : '陈总的小窝有新内容啦！',
+    body: event.data ? event.data.text() : '小道的小窝有新内容啦！',
     icon: '/icon-192.png',
     badge: '/icon-192.png',
     vibrate: [100, 50, 100],
@@ -90,7 +90,7 @@ self.addEventListener('push', event => {
   };
   
   event.waitUntil(
-    self.registration.showNotification('陈总的小窝', options)
+    self.registration.showNotification('小道的小窝', options)
   );
 });
 
