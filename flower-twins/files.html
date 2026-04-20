@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>文件柜 - 双生花</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="files-page">
+    <!-- 背景层 -->
+    <div class="bg-layer files-bg" id="bgLayer"></div>
+    
+    <!-- 顶部导航 -->
+    <div class="header" id="header">
+        <button class="back-btn glass-btn" id="backBtn">
+            <span class="btn-icon">←</span>
+            <span class="btn-text">返回</span>
+        </button>
+        <h2 class="page-title">文件柜</h2>
+    </div>
+    
+    <!-- 文件列表 -->
+    <div class="files-container" id="filesContainer">
+        <div class="file-card glass-card" data-file="https://example.com/file1.zip">
+            <div class="file-icon">📄</div>
+            <div class="file-info">
+                <span class="file-name">示例文件1.pdf</span>
+                <span class="file-size">2.5 MB</span>
+            </div>
+            <button class="download-btn">
+                <span>下载</span>
+            </button>
+        </div>
+        
+        <div class="file-card glass-card" data-file="https://example.com/file2.zip">
+            <div class="file-icon">📄</div>
+            <div class="file-info">
+                <span class="file-name">示例文件2.docx</span>
+                <span class="file-size">1.2 MB</span>
+            </div>
+            <button class="download-btn">
+                <span>下载</span>
+            </button>
+        </div>
+        
+        <div class="file-card glass-card" data-file="https://example.com/file3.zip">
+            <div class="file-icon">📄</div>
+            <div class="file-info">
+                <span class="file-name">示例文件3.jpg</span>
+                <span class="file-size">3.8 MB</span>
+            </div>
+            <button class="download-btn">
+                <span>下载</span>
+            </button>
+        </div>
+        
+        <div class="file-card glass-card" data-file="https://example.com/file4.zip">
+            <div class="file-icon">📄</div>
+            <div class="file-info">
+                <span class="file-name">示例文件4.mp4</span>
+                <span class="file-size">15.2 MB</span>
+            </div>
+            <button class="download-btn">
+                <span>下载</span>
+            </button>
+        </div>
+    </div>
+
+    <script src="js/files.js"></script>
+</body>
+</html>
