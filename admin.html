@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>管理后台 - 小熊之家</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+  <div id="app">
+    <!-- 登录页 -->
+    <div id="loginPage" class="page">
+      <div class="login-container">
+        <div class="login-logo">🐻</div>
+        <h1>小熊之家</h1>
+        <h2>管理后台</h2>
+        <form id="loginForm">
+          <div class="input-group">
+            <input type="text" id="username" placeholder="用户名" required>
+          </div>
+          <div class="input-group">
+            <input type="password" id="password" placeholder="密码" required>
+          </div>
+          <button type="submit" class="btn-primary">登录</button>
+        </form>
+        <p class="login-tip">默认账号: admin / admin123</p>
+      </div>
+    </div>
+
+    <!-- 后台主页 -->
+    <div id="mainPage" class="page hidden">
+      <!-- 顶部导航 -->
+      <header class="admin-header">
+        <h1>管理后台</h1>
+        <button class="btn-logout" onclick="logout()">退出</button>
+      </header>
+
+      <!-- 底部导航 -->
+      <nav class="admin-nav">
+        <button class="nav-item active" data-page="dashboard">
+          <span class="nav-icon">📊</span>
+          <span>首页</span>
+        </button>
+        <button class="nav-item" data-page="carousel">
+          <span class="nav-icon">🎠</span>
+          <span>轮播</span>
+        </button>
+        <button class="nav-item" data-page="users">
+          <span class="nav-icon">👥</span>
+          <span>用户</span>
+        </button>
+        <button class="nav-item" data-page="settings">
+          <span class="nav-icon">⚙️</span>
+          <span>设置</span>
+        </button>
+      </nav>
+
+      <!-- 首页看板 -->
+      <div id="dashboardPage" class="admin-content">
+        <h2>数据看板</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">👁️</div>
+            <div class="stat-value" id="todayVisits">0</div>
+            <div class="stat-label">今日访问</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🆕</div>
+            <div class="stat-value" id="newUsers">0</div>
+            <div class="stat-label">新增用户</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">🖼️</div>
+            <div class="stat-value" id="carouselClicks">0</div>
+            <div class="stat-label">轮播点击</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">💬</div>
+            <div class="stat-value" id="messages">0</div>
+            <div class="stat-label">消息数</div>
+          </div>
+        </div>
+        <div class="chart-container">
+          <h3>7天访问趋势</h3>
+          <div class="simple-chart" id="visitChart">
+            <div class="chart-bar" style="height: 30%"><span>120</span></div>
+            <div class="chart-bar" style="height: 45%"><span>180</span></div>
+            <div class="chart-bar" style="height: 60%"><span>240</span></div>
+            <div class="chart-bar" style="height: 40%"><span>160</span></div>
+            <div class="chart-bar" style="height: 75%"><span>300</span></div>
+            <div class="chart-bar" style="height: 55%"><span>220</span></div>
+            <div class="chart-bar" style="height: 85%"><span>340</span></div>
+          </div>
+          <div class="chart-labels">
+            <span>周一</span>
+            <span>周二</span>
+            <span>周三</span>
+            <span>周四</span>
+            <span>周五</span>
+            <span>周六</span>
+            <span>周日</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 轮播管理 -->
+      <div id="carouselPage" class="admin-content hidden">
+        <h2>轮播管理</h2>
+        <div class="carousel-list" id="carouselList">
+          <!-- 轮播项将通过JS渲染 -->
+        </div>
+        <button class="btn-primary btn-add" onclick="showAddCarouselModal()">
+          + 添加轮播图
+        </button>
+        
+        <!-- 实时预览 -->
+        <div class="preview-section">
+          <h3>📱 实时预览</h3>
+          <div class="phone-preview">
+            <div class="phone-frame">
+              <div class="phone-screen" id="previewScreen">
+                <img src="https://picsum.photos/400/533?random=1" alt="预览">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 用户管理 -->
+      <div id="usersPage" class="admin-content hidden">
+        <h2>用户管理</h2>
+        <div class="user-list" id="userList">
+          <!-- 用户列表将通过JS渲染 -->
+        </div>
+      </div>
+
+      <!-- 设置 -->
+      <div id="settingsPage" class="admin-content hidden">
+        <h2>设置</h2>
+        <div class="settings-section">
+          <div class="setting-item">
+            <span class="setting-label">网站名称</span>
+            <input type="text" value="小熊之家" class="setting-input">
+          </div>
+          <div class="setting-item">
+            <span class="setting-label">自动播放间隔</span>
+            <select class="setting-input">
+              <option value="3000">3秒</option>
+              <option value="4000" selected>4秒</option>
+              <option value="5000">5秒</option>
+            </select>
+          </div>
+          <div class="setting-item">
+            <span class="setting-label">主题模式</span>
+            <select class="setting-input">
+              <option value="auto">跟随系统</option>
+              <option value="light">浅色</option>
+              <option value="dark">深色</option>
+            </select>
+          </div>
+        </div>
+        <button class="btn-primary" onclick="saveSettings()">保存设置</button>
+      </div>
+    </div>
+
+    <!-- 添加轮播图弹窗 -->
+    <div id="carouselModal" class="modal hidden">
+      <div class="modal-content">
+        <h3>添加轮播图</h3>
+        <div class="input-group">
+          <label>图片URL</label>
+          <input type="url" id="carouselUrl" placeholder="https://example.com/image.jpg">
+        </div>
+        <div class="input-group">
+          <label>或上传图片</label>
+          <input type="file" id="carouselFile" accept="image/*">
+        </div>
+        <div class="input-group">
+          <label>排序权重</label>
+          <input type="number" id="carouselOrder" value="0" min="0">
+        </div>
+        <div class="modal-actions">
+          <button class="btn-secondary" onclick="hideCarouselModal()">取消</button>
+          <button class="btn-primary" onclick="saveCarousel()">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

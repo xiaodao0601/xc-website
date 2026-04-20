@@ -1,0 +1,14 @@
+# Ignore everything
+*
+
+# But not these files
+!.gitignore
+!index.html
+!app.js
+!style.css
+!admin.html
+!admin.css
+!admin.js
+!icon.svg
+!manifest.json
+!sw.js
