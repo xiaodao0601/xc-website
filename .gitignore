@@ -1,14 +1,13 @@
-# Ignore everything
-*
+# Ignore node_modules and other temp files
+node_modules/
+.DS_Store
+*.log
 
-# But not these files
+# Keep all website files
 !.gitignore
-!index.html
-!app.js
-!style.css
-!admin.html
-!admin.css
-!admin.js
-!icon.svg
-!manifest.json
-!sw.js
+!.github/
+!*.html
+!*.css
+!*.js
+!*.json
+!*.svg
